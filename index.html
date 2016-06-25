@@ -22,6 +22,21 @@ var mathBox = document.getElementById('math-box');
 var mathFieldDivs = [];
 var mathFieldFields = [];
 
+$.fn.bindUp = function (types, fn){
+  types = types.split(/\s+/);
+
+  var jelem = this;
+  types.forEach(function (type){
+    jelem.each(function (i, elem){
+      //console.log(elem);
+      $(elem).bind(type, fn);
+      var evt = $._data(elem, "events")[type];
+      //console.log(evt);
+      evt.splice(0, 0, evt.pop());
+    });
+  });
+};
+
 function addMathField(beforeObj){
   var newObj = document.createElement('div');
 
@@ -44,7 +59,7 @@ function addMathField(beforeObj){
     mathFieldDivs.splice(posBefore+1, 0, newObj);
     mathFieldFields.splice(posBefore+1, 0, mathField);
   }
-  $(newObj).keyup(function (e) {
+  $(newObj).bindUp("keydown", function (e) {
       console.log(e.keyCode);
       if (e.keyCode == 13) {
         addMathField(newObj);
@@ -62,6 +77,8 @@ function addMathField(beforeObj){
           mathFieldFields[q+1].moveToRightEnd();
           mathFieldFields[q+1].focus();
         }
+      } else if (e.keyCode == 8){//8 is backspace
+        if (mathField.atLeftEnd())backSpaceLine(newObj);
       }
   });
 }
