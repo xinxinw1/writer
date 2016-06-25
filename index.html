@@ -24,6 +24,7 @@ var mathFieldFields = [];
 
 function addMathField(beforeObj){
   var newObj = document.createElement('div');
+
   newObj.setAttribute("class","math-field");
   if (beforeObj === undefined){
     mathBox.appendChild(newObj);
@@ -44,18 +45,28 @@ function addMathField(beforeObj){
     mathFieldFields.splice(posBefore+1, 0, mathField);
   }
   $(newObj).keyup(function (e) {
+      console.log(e.keyCode);
       if (e.keyCode == 13) {
         addMathField(newObj);
       }
+      if (e.keyCode == 38){//38 is up
+        var p = mathFieldDivs.indexOf(newObj);
+        if (p > 0){
+          mathFieldFields[p-1].focus();
+        }
+      }
+      else if(e.keyCode == 40){// 40 is down
+        var q = mathFieldDivs.indexOf(newObj);
+        if (q < mathFieldFields.length - 1){
+          mathFieldFields[q+1].focus();
+        }
+      }
   });
 }
-
 $(document).ready(function () {
     
 });
-
 addMathField();
-
 /*var mathField = MQ.MathField(mathFieldSpan, {
   spaceBehavesLikeTab: false, // configurable
   handlers: {
@@ -64,7 +75,6 @@ addMathField();
     }
   }
 });*/
-
 </script>
 
 </body>
