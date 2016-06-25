@@ -65,6 +65,23 @@ function addMathField(beforeObj){
       }
   });
 }
+
+function backSpaceLine(mathFieldDiv) {
+  var line = mathFieldDivs.indexOf(mathFieldDiv);
+  if (line === 0) {
+    return;
+  }
+  var previousFieldField = mathFieldFields[line - 1];
+  var text = mathFieldFields[line].latex();
+
+  previousFieldField.focus();
+  previousFieldField.write(text);
+
+  mathBox.removeChild(mathFieldDiv);
+  mathFieldDivs.splice(line, 1);
+  mathFieldFields.splice(line, 1);
+}
+
 $(document).ready(function () {
     
 });
