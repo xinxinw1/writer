@@ -1,10 +1,10 @@
 
-.input1{
+.math-field{
 	width: 100%;
 	border:none;
 }
 
-.input1.mq-editable-field.mq-focused {
+.math-field.mq-editable-field.mq-focused {
 	border:none;
 	box-shadow:none;
 }
