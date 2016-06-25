@@ -1087,6 +1087,13 @@ function getInterface(v) {
       return this;
     };
 
+    _.atLeftEnd = function (){
+      return this.__controller.cursor[L] == false;
+    };
+    _.atRightEnd = function (){
+      return this.__controller.cursor[R] == false;
+    };
+
     _.moveToDirEnd = function(dir) {
       this.__controller.notify('move').cursor.insAtDirEnd(dir, this.__controller.root);
       return this;
