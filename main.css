@@ -1,5 +1,7 @@
 
 #math-field {
-	width: 1000px;
-	height: 500px;
+	width: 100%;
+	border:none;
+	box-shadow:none;
 }
+
