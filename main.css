@@ -2,7 +2,7 @@
 .math-field{
 	width: 100%;
 	border:none;
-	margin-bottom: 5px;
+	padding-bottom: 5px;
 }
 
 .math-field.mq-editable-field.mq-focused {
