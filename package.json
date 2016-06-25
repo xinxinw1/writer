@@ -1,0 +1,13 @@
+{
+  "name": "writer",
+  "version": "0.0.1",
+  "description": "Math Writer",
+  "license": "GPL-2.0",
+  "repository": "xinxinw1/writer",
+  "dependencies": {
+    "express": "^4.10.2"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
