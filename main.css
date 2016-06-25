@@ -2,6 +2,7 @@
 .input1{
 	width: 100%;
 	border:none;
+	margin-bottom: 5px;
 }
 
 .input1.mq-editable-field.mq-focused {
