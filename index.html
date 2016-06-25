@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<link rel="stylesheet" href="mathquill.css"/>
+<link rel="stylesheet" type="text/css" href="main.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="mathquill.js"></script>
+<script>
+var MQ = MathQuill.getInterface(2);
+</script>
+<div id="math-field">
+</div>
+
+<p>LaTeX of what you typed: <span id="latex"></span></p>
+
+<script>
+var mathFieldSpan = document.getElementById('math-field');
+var latexSpan = document.getElementById('latex');
+
+var MQ = MathQuill.getInterface(2); // for backcompat
+var mathField = MQ.MathField(mathFieldSpan, {
+  spaceBehavesLikeTab: false, // configurable
+  handlers: {
+    edit: function() { // useful event handlers
+      latexSpan.textContent = mathField.latex(); // simple API
+    }
+  }
+});
+</script>
+
+</body>
+</html>
