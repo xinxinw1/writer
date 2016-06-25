@@ -1,7 +1,11 @@
 
-#math-field {
+.input1{
 	width: 100%;
+	height: 25px;
+	border:none;
+}
+
+.input1.mq-editable-field.mq-focused {
 	border:none;
 	box-shadow:none;
 }
-

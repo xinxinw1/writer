@@ -4,17 +4,33 @@
 
 <link rel="stylesheet" href="mathquill.css"/>
 <link rel="stylesheet" type="text/css" href="main.css" />
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="mathquill.js"></script>
 <script>
 var MQ = MathQuill.getInterface(2);
 </script>
-<div id="math-field">
+<div id="math-field" class = "input1">
+</div>
+<div id="math-box" class="input1">
 </div>
 
-<p>LaTeX of what you typed: <span id="latex"></span></p>
-
 <script>
+$(document).ready(function () {
+        $(".input1").keyup(function (e) {
+            if (e.keyCode == 13) {
+                mNewObj = document.createElement('div');
+				mNewObj.setAttribute("class","input1");
+				document.getElementById("math-box").appendChild(mNewObj);
+				var mathField = MQ.MathField(mNewObj, {
+				  spaceBehavesLikeTab: false, // configurable
+				  handlers: {
+				  }
+				});
+				mathField.focus();
+            }
+        });
+    });
 var mathFieldSpan = document.getElementById('math-field');
 var latexSpan = document.getElementById('latex');
 
@@ -27,6 +43,9 @@ var mathField = MQ.MathField(mathFieldSpan, {
     }
   }
 });
+
+
+
 </script>
 
 </body>
