@@ -18,19 +18,21 @@
 <script>
 var MQ = MathQuill.getInterface(2); // for backcompat
 var mathBox = document.getElementById('math-box');
+
+var mathFields = [];
+
 function addMathField(){
   var newObj = document.createElement('div');
   newObj.setAttribute("class","input1");
   mathBox.appendChild(newObj);
   var mathField = MQ.MathField(newObj, {
-    spaceBehavesLikeTab: false
   });
   mathField.focus();
-  return mathField;
+  mathFields.push(mathField);
 }
 
 $(document).ready(function () {
-    $(".input1").keyup(function (e) {
+    $("#math-box").keyup(function (e) {
         if (e.keyCode == 13) {
           addMathField();
         }
