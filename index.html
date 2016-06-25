@@ -19,24 +19,39 @@
 var MQ = MathQuill.getInterface(2); // for backcompat
 var mathBox = document.getElementById('math-box');
 
-var mathFields = [];
+var mathFieldDivs = [];
+var mathFieldFields = [];
 
-function addMathField(){
+function addMathField(beforeObj){
   var newObj = document.createElement('div');
   newObj.setAttribute("class","math-field");
-  mathBox.appendChild(newObj);
+  if (beforeObj === undefined){
+    mathBox.appendChild(newObj);
+  } else {
+    $(newObj).insertAfter($(beforeObj));
+  }
+  
   var mathField = MQ.MathField(newObj, {
   });
   mathField.focus();
-  mathFields.push(mathField);
+  if (beforeObj === undefined){
+    mathFieldDivs.push(newObj);
+    mathFieldFields.push(mathField);
+  } else {
+    var posBefore = mathFieldDivs.indexOf(beforeObj);
+    console.log(posBefore);
+    mathFieldDivs.splice(posBefore+1, 0, newObj);
+    mathFieldFields.splice(posBefore+1, 0, mathField);
+  }
+  $(newObj).keyup(function (e) {
+      if (e.keyCode == 13) {
+        addMathField(newObj);
+      }
+  });
 }
 
 $(document).ready(function () {
-    $("#math-box").keyup(function (e) {
-        if (e.keyCode == 13) {
-          addMathField();
-        }
-    });
+    
 });
 
 addMathField();
