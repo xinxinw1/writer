@@ -7,42 +7,41 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="mathquill.js"></script>
-<script>
-var MQ = MathQuill.getInterface(2);
-</script>
-<div id="math-field" class = "input1">
-</div>
-<div id="math-box" class="input1">
-</div>
+
+<div id="math-box"></div>
 
 <script>
-$(document).ready(function () {
-        $(".input1").keyup(function (e) {
-            if (e.keyCode == 13) {
-                mNewObj = document.createElement('div');
-				mNewObj.setAttribute("class","input1");
-				document.getElementById("math-box").appendChild(mNewObj);
-				var mathField = MQ.MathField(mNewObj, {
-				  spaceBehavesLikeTab: false, // configurable
-				  handlers: {
-				  }
-				});
-				mathField.focus();
-            }
-        });
-    });
-var mathFieldSpan = document.getElementById('math-field');
-var latexSpan = document.getElementById('latex');
-
 var MQ = MathQuill.getInterface(2); // for backcompat
-var mathField = MQ.MathField(mathFieldSpan, {
+var mathBox = document.getElementById('math-box');
+function addMathField(){
+  var newObj = document.createElement('div');
+  newObj.setAttribute("class","input1");
+  mathBox.appendChild(newObj);
+  var mathField = MQ.MathField(newObj, {
+    spaceBehavesLikeTab: false
+  });
+  mathField.focus();
+  return mathField;
+}
+
+$(document).ready(function () {
+    $(".input1").keyup(function (e) {
+        if (e.keyCode == 13) {
+          addMathField();
+        }
+    });
+});
+
+addMathField();
+
+/*var mathField = MQ.MathField(mathFieldSpan, {
   spaceBehavesLikeTab: false, // configurable
   handlers: {
     edit: function() { // useful event handlers
       latexSpan.textContent = mathField.latex(); // simple API
     }
   }
-});
+});*/
 
 
 
