@@ -20,6 +20,10 @@ $.fn.bindUp = function (types, fn){
   });
 };
 
+function focusLastField() {
+  mathFieldFields[mathFieldFields.length - 1].focus();
+}
+
 function addMathField(beforeObj){
   var newObj = document.createElement('div');
 
