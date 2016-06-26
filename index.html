@@ -16,11 +16,15 @@
 			<button id="button1" onclick="window.location='file.html';">Create New Document</button>
 			<button id="button2" onclick="openDirectoryMenu()">Access Documents</button>
 		</div>
-		<table id="fileContainerDiv">
+		<table id="files">
+		  <tr>
+		    <th>Filename</th>
+		    <th>Delete</th>
+		  </tr>
 		  {{#files}}
 		  <tr>
-		    <td>{{files}}</td>
-		    <td><button onclick="deleteFile('{{files}}')">Delete</button></td>
+		    <td><a href="file.html?file={{encodedFile}}">{{file}}</a></td>
+		    <td><button onclick="deleteFile('{{file}}')">Delete</button></td>
 		  </tr>
 		  {{/files}}
 		</table>
