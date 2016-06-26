@@ -27,7 +27,35 @@ app.post('/save', function(req, res) {
 });
 
 function saveFile(data) {
-  
+
+}
+
+var mu = require('mu2');
+
+mu.root = __dirname;
+
+app.get(['/', '/index.html'], function (req, res){
+  getFiles(function (files){
+    var stream = mu.compileAndRender('index.html', {files: files});
+    stream.pipe(res);
+  }, function (err){
+    console.log(err);
+    res.send(err.toString());
+  });
+});
+
+var fs = require('fs');
+
+function getFiles(cb, ef){
+  fs.readdir(filesDir, function (err, files){
+    if (err){
+      console.log(err);
+      ef(err);
+    } else {
+      console.log(files);
+      cb(files);
+    }
+  });
 }
 
 app.use(express.static('.'));

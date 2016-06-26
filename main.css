@@ -1,8 +1,9 @@
-* {border: 0; margin: 0; padding: 0;}
+* {margin: 0; padding: 0; border: 0;}
 
-body {
-  padding: 8px;
-  font-size: 16pt;
+body{
+	font-family: Symbola, serif;
+	text-align:center;
+  padding: 50px 8px 8px;
 }
 
 @font-face {
@@ -11,47 +12,24 @@ body {
   src: local("Symbola Regular"), local("Symbola"), url(font/Symbola.woff2) format("woff2"), url(font/Symbola.woff) format("woff"), url(font/Symbola.ttf) format("truetype"), url(font/Symbola.otf) format("opentype");
 }
 
-.math-field{
-	width: 100%;
-	border:none;
-	padding-bottom: 8px;
+h1 {
+	text-align: center;
+	font-size: 100px;
+	margin-bottom: 50px;
 }
 
-.filename {
-	margin-bottom: 15px;
+#buttons button {
+  padding: 5px 20px;
 }
 
-.math-field.mq-editable-field.mq-focused {
-	border:none;
-	box-shadow:none;
+#subtitle1, #subtitle2 {
+  visibility: hidden;
+	font-size: 50px;
+	margin-bottom: 50px;
 }
 
-#filename {
-	height: 48px;
-	font-size: 40px;
-	line-height: 48px;
+#buttons {
+  visibility: hidden;
 }
-
 table {border-collapse: collapse; width: 100%;}
 td {vertical-align: middle;}
-
-#top-bar td {width: 1px; white-space: nowrap;}
-
-#top-bar #filename-cell {width: 100%; padding: 0 8px;}
-
-#top-bar {
-  margin-bottom: 8px;
-}
-
-#top-bar input {
-  width: 100%;
-  border: 0;
-  box-sizing: border-box;
-  font-family: Symbola, serif;
-}
-
-input:focus, select:focus, textarea:focus, button:focus {
-  outline: none;
-}
-
-hr {border-top: 1px dotted #808080; margin: 8px 0 12px 0;}

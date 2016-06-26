@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Math Writer</title>
-  
-  <link rel="stylesheet" href="mathquill.css"/>
-  <link rel="stylesheet" type="text/css" href="main.css" />
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script src="mathquill.js"></script>
-</head>
+	<head>
+		<title> Main Page </title>
+		<link href="main.css" type="text/css" rel="stylesheet" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="main.js"></script>
+	</head>
 
-<body>
-<table id="top-bar"><tr>
-  <td>
-    <a href="main.html"><img src="back.png"></a>
-  </td>
-  <td id="filename-cell">
-    <input type="text" name="fname" id="filename" placeholder="File Name">
-  </td>
-  <td>
-    <a href="#" id="downloadLink"><img src="download.png"></a>
-    <a href="#" id="saveLink"><img src="save.png"></a>
-  </td>
-</tr></table>
-<hr>
-<div id="math-box"></div>
+	<body>
 
-<script src="writer.js"></script>
+		<h1>WriTeX</h1>
+		<div id="subtitle1">Write and Share Beautiful LaTeX Notes</div>
+		<div id="subtitle2">Without Learning LaTeX.</div>
+		<div id="buttons">
+			<button id="button1" onclick="window.location='file.html';">Create New Document</button>
+			<button id="button2" onclick="openDirectoryMenu()">Access Documents</button>
+		</div>
+		<table id="fileContainerDiv">
+		  {{#files}}
+		  <tr>
+		    <td>{{files}}</td>
+		    <td><button onclick="deleteFile('{{files}}')">Delete</button></td>
+		  </tr>
+		  {{/files}}
+		</table>
 
-</body>
+	</body>
+
+
 </html>
