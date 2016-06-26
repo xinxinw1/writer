@@ -170,7 +170,10 @@ function getFilename(){
 }
 
 // Bind request to the save button
-$('#saveLink').click(saveFile);
+$('#saveLink').click(function (e){
+    saveFile();
+    return false;
+});
 
 function saveFile(){
   var newFilename = getFilename();
@@ -187,8 +190,9 @@ function saveFile(){
           processData: false,
           success: function(data) {
               console.log(data);
-              if (origFilename !== newFilename)go(newFilename);
               origLineData = newLineData;
+              origFilename = newFilename;
+              if (origFilename !== newFilename)go(newFilename);
               checkEdit();
           },
           error: function(xhr, textStatus, error) {
