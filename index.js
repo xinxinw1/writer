@@ -3,7 +3,7 @@ var app = express();
 var http = require('http').Server(app);
 var fs = require('fs');
 
-app.set('port', (process.env.PORT || 8080));
+app.set('port', (process.env.OPENSHIFT_NODEJS_PORT || 8080));
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
