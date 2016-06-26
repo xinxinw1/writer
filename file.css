@@ -67,6 +67,7 @@ hr {border-top: 1px dotted #808080; margin: 8px 0 12px 0;}
   display: flex;
   flex-flow: column;
   height: 100%;
+  cursor: text;
 }
 
 .fixedpos {
