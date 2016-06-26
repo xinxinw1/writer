@@ -1,0 +1,15 @@
+body{
+	background: lightyellow;
+	font-family: Georgia, serif;
+
+	text-align:center;
+}
+
+h1,p {
+	color: #ee3e80;
+	text-align:center; 
+}
+
+button{
+	width : 200px;
+}
