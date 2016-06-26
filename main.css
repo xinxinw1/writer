@@ -1,9 +1,10 @@
 * {margin: 0; padding: 0; border: 0;}
 
 body {
+  text-align: center;
 	font-family: Symbola, serif;
-  padding: 50px 8px 8px;
   font-size: 16pt;
+  padding: 50px;
 }
 
 @font-face {
@@ -13,18 +14,12 @@ body {
 }
 
 h1 {
-	text-align: center;
 	font-size: 100px;
 	margin-bottom: 50px;
 }
 
-#subtitle1, #subtitle2, #buttons, #files {
-  visibility: hidden;
-}
-
 #subtitle1, #subtitle2, #buttons {
   margin-bottom: 50px;
-  text-align: center;
 }
 
 #subtitle1, #subtitle2 {
@@ -39,11 +34,17 @@ button {
   border: 1px solid #000;
 }
 
-table {border-collapse: collapse; width: 100%;}
+table {border-collapse: collapse;}
 td, tr {vertical-align: middle; text-align: left;}
 
-#files td, #files th {width: 1px; white-space: nowrap;}
-#files td:first-child, #files th:first-child {width: 100%;}
+#files {
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 600px;
+}
+
+#files td, #files th {width: 1px; white-space: nowrap; text-align: right}
+#files td:first-child, #files th:first-child {padding-right: 10px; width: auto; text-align: left;}
 
 #files th {font-weight: bold; padding-bottom: 5px; border-bottom: 1px dotted #808080;}
 #files td {padding-top: 10px;}
@@ -52,8 +53,6 @@ td, tr {vertical-align: middle; text-align: left;}
   display: block;
   text-decoration: none;
   color: #000;
-  width: 100%;
-  padding-right: 10px;
 }
 
 #files a:hover {

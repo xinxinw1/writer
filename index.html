@@ -8,26 +8,24 @@
 	</head>
 
 	<body>
-
-		<h1>WriTeX</h1>
-		<div id="subtitle1">Write and Share Beautiful LaTeX Notes</div>
-		<div id="subtitle2">Without Learning LaTeX.</div>
-		<div id="buttons">
-			<button id="button1" onclick="window.location='file.html';">Create New Document</button>
-		</div>
-		<table id="files">
-		  <tr>
-		    <th>Filename</th>
-		    <th>Delete</th>
-		  </tr>
-		  {{#files}}
-		  <tr>
-		    <td><a href="file.html?file={{encodedFile}}">{{file}}</a></td>
-		    <td><button onclick="deleteFile('{{file}}')">Delete</button></td>
-		  </tr>
-		  {{/files}}
-		</table>
-
+    <h1>WriTeX</h1>
+    <div id="subtitle1">Write and Share Beautiful LaTeX Notes</div>
+    <div id="subtitle2">Without Learning LaTeX.</div>
+    <div id="buttons">
+      <button id="button1" onclick="window.location='file.html';">Create New Document</button>
+    </div>
+    <table id="files">
+      <tr>
+        <th>Filename</th>
+        <th>Delete</th>
+      </tr>
+      {{#files}}
+      <tr>
+        <td><a href="file.html?file={{encodedFile}}">{{file}}</a></td>
+        <td><button onclick="deleteFile('{{file}}')">Delete</button></td>
+      </tr>
+      {{/files}}
+    </table>
 	</body>
 
 </html>
