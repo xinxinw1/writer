@@ -42,18 +42,18 @@ function addMathField(beforeObj){
     mathFieldFields.push(mathField);
   } else {
     var posBefore = mathFieldDivs.indexOf(beforeObj);
-    console.log(posBefore);
+    //console.log(posBefore);
     mathFieldDivs.splice(posBefore+1, 0, newObj);
     mathFieldFields.splice(posBefore+1, 0, mathField);
   }
   document.body.scrollTop = document.body.scrollHeight;
   
-  var cancelKeyUpAndPress = false;
+  //var cancelKeyUpAndPress = false;
   $(newObj).bindUp("keydown", function (e) {
       // if this function returns, the following var will
       // still be true, so keyup and keypress are cancelled
-      cancelKeyUpAndPress = true;
-      console.log(e.keyCode);
+      //cancelKeyUpAndPress = true;
+      //console.log(e.keyCode);
       switch (e.keyCode){
       case 13: // enter
         setTimeout(function (){
@@ -91,11 +91,11 @@ function addMathField(beforeObj){
         }
         break;
       }
-      cancelKeyUpAndPress = false;
+      //cancelKeyUpAndPress = false;
   });
-  $(newObj).bindUp("keyup keypress", function (e) {
+  /*$(newObj).bindUp("keyup keypress", function (e) {
     console.log(e);
-  })
+  })*/
   
   return mathField;
 }
@@ -241,14 +241,14 @@ function hasChanges(){
 }
 
 function checkEdit(){
-  console.log(origLineData);
-  console.log(getLatexArr());
+  //console.log(origLineData);
+  //console.log(getLatexArr());
   if (hasChanges()){
-    console.log("changed");
+    //console.log("changed");
     document.title = newTitle;
     $("#saveLink").css("opacity", "1");
   } else {
-    console.log("not changed");
+    //console.log("not changed");
     document.title = origTitle;
     $("#saveLink").css("opacity", "0.4");
   }
