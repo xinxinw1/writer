@@ -55,43 +55,43 @@ function addMathField(beforeObj){
       switch (e.keyCode){
       case 13: // enter
         addMathField(newObj);
-        return false;
+        //return false;
+        break;
       case 38: // up
         if (mathField.atTopEnd()){
           goToEndBefore(newObj);
-          return false;
+          //return false;
         }
         break;
       case 40: // down
         if (mathField.atBottomEnd()){
           goToEndAfter(newObj);
-          return false;
+          //return false;
         }
         break;
       case 37: // left
         if (mathField.atLeftEnd() && !mathField.hasSelection()){
           goToEndBefore(newObj);
-          return false;
+          //return false;
         }
         break;
       case 39: // right
         if (mathField.atRightEnd() && !mathField.hasSelection()){
           goToStartAfter(newObj);
-          return false;
+          //return false;
         }
         break;
       case 8: // backspace
         if (mathField.atLeftEnd() && !mathField.hasSelection()){
           backSpaceLine(newObj);
-          return false;
         }
         break;
       }
       cancelKeyUpAndPress = false;
   });
-  $(newObj).bindUp("keyup keypress", function (e) {
+  /*$(newObj).bindUp("keyup keypress", function (e) {
     if (cancelKeyUpAndPress)return false;
-  });
+  });*/
   
   return mathField;
 }
@@ -151,42 +151,98 @@ function downloadData(filename, data, mimeType) {
 }
 
 $('#downloadLink').click(function(){
-  var fileName =  document.getElementById("filename").value;
-	var data = mathFieldFields.map(function(a){return a.latex();}).join("\n");
+  var fileName = getFilename();
+	var data = getLatexArr().join("\n");
 	downloadData(fileName, data);
 	return false;
 });
 
-// Http request to save the file on the server
-function saveFile(dataSet) {
-    $.ajax({
-        type: "POST",
-        url: '/save',
-        data: dataSet,
-        processData: false,
-        success: function(data) {
-            console.log(data);
-        },
-        error: function(xhr, textStatus, error) {
-            console.log(textStatus);
-            console.log(error);
-        },
-        dataType: 'text'
-    });
+function getLatexArr(){
+  return mathFieldFields.map(function(a){
+    return a.latex();
+  });
+}
+
+function getFilename(){
+  return document.getElementById("filename").value;
 }
 
 // Bind request to the save button
-$('#saveLink').click(function() {
-    var fileName = document.getElementById("filename").value;
-    if (fileName != '') {
-        var data = 'data=' + encodeURIComponent(JSON.stringify({filename: fileName, lineData: mathFieldFields.map(function(a){return a.latex();})}));
-        saveFile(data);
-    }
-    else {
-        console.log("No filename found, file not saved.");
-    }
+$('#saveLink').click(saveFile);
+
+function saveFile(){
+  var newFilename = getFilename();
+  if (newFilename != '') {
+      var newLineData = getLatexArr();
+      var data = 'data=' + encodeURIComponent(JSON.stringify({
+        filename: newFilename,
+        lineData: newLineData
+      }));
+      $.ajax({
+          type: "POST",
+          url: '/save',
+          data: data,
+          processData: false,
+          success: function(data) {
+              console.log(data);
+              if (origFilename !== newFilename)go(newFilename);
+              origLineData = newLineData;
+              checkEdit();
+          },
+          error: function(xhr, textStatus, error) {
+              console.log(textStatus);
+              console.log(error);
+          },
+          dataType: 'text'
+      });
+  }
+}
+
+function go(filename){
+  window.location.assign("?file=" + encodeURIComponent(filename));
+}
+
+var hasOrigData = data !== null && data.err === undefined;
+var origFilename = hasOrigData?data.filename:"";
+var origLineData = hasOrigData?data.lineData:[];
+
+var origTitle = genTitle(hasOrigData?data.filename:"");
+var newTitle = "*" + origTitle;
+
+function genTitle(filename){
+  return (filename === "")?"WriTeX":filename + " | WriteX";
+}
+
+$(document).keydown(function (e){
+  if (e.ctrlKey && e.keyCode == 83){
+    saveFile();
     return false;
+  }
 });
+
+function checkEdit(){
+  console.log(origLineData);
+  console.log(getLatexArr());
+  if (!iso(origLineData, getLatexArr()) || origFilename !== getFilename()){
+    console.log("changed");
+    document.title = newTitle;
+    $("#saveLink").css("opacity", "1");
+  } else {
+    console.log("not changed");
+    document.title = origTitle;
+    $("#saveLink").css("opacity", "0.4");
+  }
+}
+
+function iso(a, b){
+  if (a.length !== b.length)return false;
+  for (var i = 0; i < a.length; i++){
+    if (a[i] !== b[i])return false;
+  }
+  return true;
+}
+
+document.onkeyup = checkEdit;
 
 $(function (){
   if (data === null){
@@ -199,6 +255,7 @@ $(function (){
     data.lineData.forEach(function (line){
       addMathField().latex(line);
     });
+    checkEdit();
   }
 });
 
