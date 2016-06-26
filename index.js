@@ -14,9 +14,9 @@ var mu = require('mu2');
 
 mu.root = __dirname;
 
-app.get('/main.html', function (req, res){
+app.get(['/', '/index.html'], function (req, res){
   getFiles(function (files){
-    var stream = mu.compileAndRender('main.html', {files: files});
+    var stream = mu.compileAndRender('index.html', {files: files});
     stream.pipe(res);
   }, function (err){
     console.log(err);
