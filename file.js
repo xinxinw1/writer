@@ -56,7 +56,9 @@ function addMathField(beforeObj){
       console.log(e.keyCode);
       switch (e.keyCode){
       case 13: // enter
-        addMathField(newObj);
+        setTimeout(function (){
+            addMathField(newObj);
+        }, 1);
         //return false;
         break;
       case 38: // up
@@ -91,9 +93,9 @@ function addMathField(beforeObj){
       }
       cancelKeyUpAndPress = false;
   });
-  /*$(newObj).bindUp("keyup keypress", function (e) {
-    if (cancelKeyUpAndPress)return false;
-  });*/
+  $(newObj).bindUp("keyup keypress", function (e) {
+    console.log(e);
+  })
   
   return mathField;
 }
@@ -103,13 +105,17 @@ function getPosOfDiv(mathFieldDiv){
 }
 
 function goToEndOf(p){
-  mathFieldFields[p].moveToRightEnd();
-  mathFieldFields[p].focus();
+  setTimeout(function (){
+    mathFieldFields[p].moveToRightEnd();
+    mathFieldFields[p].focus();
+  }, 1);
 }
 
 function goToStartOf(p){
-  mathFieldFields[p].moveToLeftEnd();
-  mathFieldFields[p].focus();
+  setTimeout(function (){
+    mathFieldFields[p].moveToLeftEnd();
+    mathFieldFields[p].focus();
+  }, 1);
 }
 
 function goToEndBefore(mathFieldDiv){
