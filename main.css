@@ -47,4 +47,4 @@ input:focus, select:focus, textarea:focus, button:focus {
   outline: none;
 }
 
-hr {border: 1px solid #AAA; margin: 8px 0;}
+hr {border-top: 1px dotted #808080; margin: 8px 0 12px 0;}
