@@ -64,7 +64,11 @@ function addMathField(beforeObj){
     mathFieldDivs.splice(posBefore+1, 0, newObj);
     mathFieldFields.splice(posBefore+1, 0, mathField);
   }
+  var cancelKeyUpAndPress = false;
   $(newObj).bindUp("keydown", function (e) {
+      // if this function returns, the following var will
+      // still be true, so keyup and keypress are cancelled
+      cancelKeyUpAndPress = true;
       console.log(e.keyCode);
       switch (e.keyCode){
       case 13: // enter
@@ -95,6 +99,10 @@ function addMathField(beforeObj){
         }
         break;
       }
+      cancelKeyUpAndPress = false;
+  });
+  $(newObj).bindUp("keyup keypress", function (e) {
+    if (cancelKeyUpAndPress)return false;
   });
 }
 
