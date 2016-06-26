@@ -88,6 +88,8 @@ function addMathField(beforeObj){
   $(newObj).bindUp("keyup keypress", function (e) {
     if (cancelKeyUpAndPress)return false;
   });
+  
+  return mathField;
 }
 
 function getPosOfDiv(mathFieldDiv){
@@ -134,7 +136,6 @@ function backSpaceLine(mathFieldDiv){
   }
 }
 
-addMathField();
 
 function downloadData(filename, data, mimeType) {
     var link = document.createElement('a');
@@ -180,6 +181,17 @@ $('#saveLink').click(function() {
     else {
         console.log("No filename found, file not saved.");
     }
+});
+
+$(function (){
+  if (data !== null){
+    document.getElementById("filename").value = data.filename;
+    data.lineData.forEach(function (line){
+      addMathField().latex(line);
+    });
+  } else {
+    addMathField();
+  }
 });
 
 /*var mathField = MQ.MathField(mathFieldSpan, {
