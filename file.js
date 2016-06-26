@@ -184,7 +184,7 @@ $('#saveLink').click(function() {
 $(function (){
   if (data !== null){
     document.getElementById("filename").value = data.filename;
-    data.data.forEach(function (line){
+    data.lineData.forEach(function (line){
       addMathField().latex(line);
     });
   } else {
