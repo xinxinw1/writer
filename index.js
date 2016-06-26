@@ -6,9 +6,7 @@ var fs = require('fs');
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
-console.log(process.env.OPENSHIFT_DATA_DIR);
-
-var filesDir = process.env.OPENSHIFT_DATA_DIR || "files";
+var filesDir = (process.env.OPENSHIFT_DATA_DIR || "") + "files";
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
@@ -86,8 +84,7 @@ app.get(['/', '/index.html'], function (req, res){
             file: file,
             encodedFile: encodeURIComponent(file)
           };
-        }),
-        dir: filesDir
+        })
       });
     }, function (err){
       console.log(err);
