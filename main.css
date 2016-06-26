@@ -22,6 +22,7 @@ body {
 #filename {
 	height: 48px;
 	font-size: 40px;
+	line-height: 48px;
 }
 
 table {border-collapse: collapse; width: 100%;}
