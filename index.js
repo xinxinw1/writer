@@ -4,6 +4,8 @@ var http = require('http').Server(app);
 
 app.set('port', (process.env.PORT || 8080));
 
+var filesDir = "files";
+
 app.post('/save', function(req, res) {
   res.send('hello world');
 });
