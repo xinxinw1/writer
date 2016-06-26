@@ -191,8 +191,12 @@ function saveFile(){
           success: function(data) {
               console.log(data);
               origLineData = newLineData;
+              var filenameChanged = false;
+              if (origFilename !== newFilename){
+                filenameChanged = true;
+              }
               origFilename = newFilename;
-              if (origFilename !== newFilename)go(newFilename);
+              if (filenameChanged)go(newFilename);
               checkEdit();
           },
           error: function(xhr, textStatus, error) {
