@@ -1,8 +1,13 @@
+* {border: 0; margin: 0; padding: 0;}
+
+body {
+  padding: 8px;
+}
 
 .math-field{
 	width: 100%;
 	border:none;
-	padding-bottom: 5px;
+	padding-bottom: 8px;
 }
 
 .filename {
@@ -19,7 +24,26 @@
 	font-size: 40px;
 }
 
-#top-bar img, #top-bar input {
-	vertical-align: middle;
-	margin-bottom: 10px;
+table {border-collapse: collapse; width: 100%;}
+td {vertical-align: middle;}
+
+#top-bar td {width: 1px; white-space: nowrap;}
+
+#top-bar #filename-cell {width: 100%; padding: 0 8px;}
+
+#top-bar {
+  margin-bottom: 8px;
 }
+
+#top-bar input {
+  width: 100%;
+  border: 0;
+  box-sizing: border-box;
+  font-family: "Times New Roman", Symbola, serif;
+}
+
+input:focus, select:focus, textarea:focus, button:focus {
+  outline: none;
+}
+
+hr {border: 1px solid #AAA; margin: 8px 0;}
