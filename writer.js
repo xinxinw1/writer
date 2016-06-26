@@ -139,23 +139,19 @@ $(document).ready(function () {
 });
 addMathField();
 
-function downloadInnerHtml(filename, elId, mimeType) {
-    var elHtml = document.getElementById(elId).innerHTML;
+function downloadData(filename, data, mimeType) {
     var link = document.createElement('a');
     mimeType = mimeType || 'text/plain';
-
-    link.setAttribute('download', filename);
-    link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elHtml));
+    
+    link.download = filename;
+    link.href = 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(data);
     link.click(); 
 }
 
 $('#downloadLink').click(function(){
-
   var fileName =  document.getElementById("filename").value;
-
-	document.getElementById("main").innerHTML = mathFieldFields.map(function(a){return a.latex();}).join("\n");
-    downloadInnerHtml(fileName, 'main','text/plain');
-
+	var data = mathFieldFields.map(function(a){return a.latex();}).join("\n");
+	downloadData(fileName, data);
 });
 
 
