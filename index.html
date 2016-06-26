@@ -12,7 +12,11 @@
 </head>
 
 <body>
-
+<a href="main.html">Go Back</a>
+<form class="filename" action="">
+  File Name: <input type="text" name="fname"> 
+  <input type="submit" value="Save">
+</form>
 <div id="math-box"></div>
 
 <script>
@@ -22,6 +26,7 @@ var mathBox = document.getElementById('math-box');
 var mathFieldDivs = [];
 var mathFieldFields = [];
 
+// binds handler as the first one to be executed
 $.fn.bindUp = function (types, fn){
   types = types.split(/\s+/);
 
@@ -61,42 +66,77 @@ function addMathField(beforeObj){
   }
   $(newObj).bindUp("keydown", function (e) {
       console.log(e.keyCode);
-      if (e.keyCode == 13) {
+      switch (e.keyCode){
+      case 13: // enter
         addMathField(newObj);
-      }
-      if (e.keyCode == 38){//38 is up
-        var p = mathFieldDivs.indexOf(newObj);
-        if (p > 0){
-          mathFieldFields[p-1].moveToRightEnd();
-          mathFieldFields[p-1].focus();
+        break;
+      case 38: // up
+        goToEndBefore(newObj);
+        break;
+      case 40: // down
+        goToEndAfter(newObj);
+        break;
+      case 37: // left
+        if (mathField.atLeftEnd() && !mathField.hasSelection()){
+          goToEndBefore(newObj);
         }
-      }
-      else if(e.keyCode == 40){// 40 is down
-        var q = mathFieldDivs.indexOf(newObj);
-        if (q < mathFieldFields.length - 1){
-          mathFieldFields[q+1].moveToRightEnd();
-          mathFieldFields[q+1].focus();
+        break;
+      case 39: // right
+        if (mathField.atRightEnd() && !mathField.hasSelection()){
+          goToStartAfter(newObj);
         }
-      } else if (e.keyCode == 8){//8 is backspace
-        if (mathField.atLeftEnd())backSpaceLine(newObj);
+        break;
+      case 8: // backspace
+        if (mathField.atLeftEnd() && !mathField.hasSelection()){
+          backSpaceLine(newObj);
+        }
+        break;
       }
   });
 }
 
-function backSpaceLine(mathFieldDiv) {
-  var line = mathFieldDivs.indexOf(mathFieldDiv);
-  if (line === 0) {
-    return;
+function getPosOfDiv(mathFieldDiv){
+  return mathFieldDivs.indexOf(mathFieldDiv);
+}
+
+function goToEndOf(p){
+  mathFieldFields[p].moveToRightEnd();
+  mathFieldFields[p].focus();
+}
+
+function goToStartOf(p){
+  mathFieldFields[p].moveToLeftEnd();
+  mathFieldFields[p].focus();
+}
+
+function goToEndBefore(mathFieldDiv){
+  var p = getPosOfDiv(mathFieldDiv);
+  if (p > 0)goToEndOf(p-1);
+}
+
+function goToEndAfter(mathFieldDiv){
+  var p = getPosOfDiv(mathFieldDiv);
+  if (p < mathFieldFields.length-1)goToEndOf(p+1);
+}
+
+function goToStartAfter(mathFieldDiv){
+  var p = getPosOfDiv(mathFieldDiv);
+  if (p < mathFieldFields.length-1)goToStartOf(p+1);
+}
+
+function backSpaceLine(mathFieldDiv){
+  var p = getPosOfDiv(mathFieldDiv);
+  if (p > 0){
+    var previousFieldField = mathFieldFields[p-1];
+    var text = mathFieldFields[p].latex();
+  
+    goToEndOf(p-1);
+    previousFieldField.write(text);
+  
+    mathBox.removeChild(mathFieldDiv);
+    mathFieldDivs.splice(p, 1);
+    mathFieldFields.splice(p, 1);
   }
-  var previousFieldField = mathFieldFields[line - 1];
-  var text = mathFieldFields[line].latex();
-
-  previousFieldField.focus();
-  previousFieldField.write(text);
-
-  mathBox.removeChild(mathFieldDiv);
-  mathFieldDivs.splice(line, 1);
-  mathFieldFields.splice(line, 1);
 }
 
 $(document).ready(function () {

@@ -1,12 +1,16 @@
 body{
 	background: lightyellow;
 	font-family: Georgia, serif;
+
+	text-align:center;
 }
 
-h1 {
-	color: #ee3e80;}
+h1,p {
+	color: #ee3e80;
+	text-align:center; 
+}
 
 button{
 	width : 100px;
-	
+>>>>>>> 4cce1ed18dece2c162c4ce28dcd5f5f94e89ef86
 }

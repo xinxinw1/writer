@@ -808,6 +808,9 @@ var Cursor = P(Point, function(_) {
     return true;
   };
 
+  _.hasSelection = function() {
+    return this.selection !== undefined;
+  };
   _.clearSelection = function() {
     if (this.selection) {
       this.selection.clear();
@@ -1085,6 +1088,9 @@ function getInterface(v) {
     _.clearSelection = function() {
       this.__controller.cursor.clearSelection();
       return this;
+    };
+    _.hasSelection = function() {
+      return this.__controller.cursor.hasSelection();
     };
 
     _.atLeftEnd = function (){
