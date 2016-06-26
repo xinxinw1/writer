@@ -1094,10 +1094,10 @@ function getInterface(v) {
     };
 
     _.atLeftEnd = function (){
-      return this.__controller.cursor[L] == false;
+      return this.__controller.cursor[L] === 0 && this.__controller.cursor.parent === this.__controller.root;
     };
     _.atRightEnd = function (){
-      return this.__controller.cursor[R] == false;
+      return this.__controller.cursor[R] === 0 && this.__controller.cursor.parent === this.__controller.root;
     };
 
     _.moveToDirEnd = function(dir) {
