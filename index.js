@@ -71,6 +71,7 @@ var mu = require('mu2');
 mu.root = __dirname;
 
 app.get(['/', '/index.html'], function (req, res){
+  res.setHeader("Content-Type", "text/html");
   function render(data){
     renderFile(res, 'index.html', data);
   }
@@ -114,6 +115,7 @@ function getFiles(dir, cb, ef){
 var path = require('path');
 
 app.get('/file.html', function (req, res){
+  res.setHeader("Content-Type", "text/html");
   function render(data){
     renderFile(res, 'file.html', data);
   }
