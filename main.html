@@ -8,9 +8,9 @@
 
 		<h1>Welcome to MathTextEditor!</h1>
 		<p> Some description </p>
-		<div id="fileContainerDiv"></div>
 		<button type = "button1" onClick = "window.location='index.html';">Create New Document</button>
 		<button type = "button2" onClick = "openDirectoryMenu()">Access Documents</button>
+		<div id="fileContainerDiv"></div>
 
 	</body>
 
@@ -20,8 +20,8 @@
 			document.createElement('br');
 
 			var fileList = getFileInfo();
-
 			//Each file consists of a title, an edit button, and a delete button
+
 			for (var i = 0; i < 5; i++) {
 
 				var fileDiv = document.createElement('div');
