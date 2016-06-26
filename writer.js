@@ -151,21 +151,33 @@ $('#downloadLink').click(function(){
 	downloadData(fileName, data);
 });
 
-function saveFile(data) {
+// Http request to save the file on the server
+function saveFile(dataSet) {
     $.ajax({
         type: "POST",
-        url: 'save',
-        data: data,
-        success: function() {
-            console.log('Data was saved successfully!')
-        }
+        url: '/save',
+        data: dataSet,
+        success: function(data) {
+            console.log(data);
+        },
+        error: function(xhr, textStatus, error) {
+            console.log(textStatus);
+            console.log(error);
+        },
+        dataType: 'text'
     });
 }
 
+// Bind request to the save button
 $('#saveLink').click(function() {
     var fileName = document.getElementById("filename").value;
-    var data = {filename: fileName, lineData: mathFieldFields.map(function(a){return a.latex();})};
-    saveFile(data);
+    if (fileName != '') {
+        var data = {filename: fileName, lineData: mathFieldFields.map(function(a){return a.latex();})};
+        saveFile(data);
+    }
+    else {
+        console.log("No filename found, file not saved.");
+    }
 });
 
 /*var mathField = MQ.MathField(mathFieldSpan, {
