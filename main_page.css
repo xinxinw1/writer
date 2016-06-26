@@ -22,3 +22,13 @@ p {
 button {
 	width : 200px;
 }
+
+#div_with_text {
+	display: none;
+}
+#div_with_text2 {
+	display: none;
+}
+#buttondiv {
+	display:none;
+}

@@ -19,6 +19,12 @@ function openDirectoryMenu() {
     }
 }
 
+$(document).ready(function(){
+    $('#div_with_text').fadeIn(1000);
+    $('#div_with_text2').delay(500).fadeIn(1000);
+    $('#buttondiv').delay(1000).fadeIn(1000);
+});
+
 function getFileInfo() {
     var fileList = [];
     var fs = require("fs");
