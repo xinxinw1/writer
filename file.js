@@ -150,6 +150,7 @@ $('#downloadLink').click(function(){
   var fileName =  document.getElementById("filename").value;
 	var data = mathFieldFields.map(function(a){return a.latex();}).join("\n");
 	downloadData(fileName, data);
+	return false;
 });
 
 // Http request to save the file on the server
@@ -181,16 +182,20 @@ $('#saveLink').click(function() {
     else {
         console.log("No filename found, file not saved.");
     }
+    return false;
 });
 
 $(function (){
-  if (data !== null){
+  if (data === null){
+    addMathField();
+  } else if (data.err !== undefined){
+    console.log(data.err);
+    addMathField();
+  } else {
     document.getElementById("filename").value = data.filename;
     data.lineData.forEach(function (line){
       addMathField().latex(line);
     });
-  } else {
-    addMathField();
   }
 });
 

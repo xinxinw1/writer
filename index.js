@@ -50,20 +50,33 @@ var mu = require('mu2');
 mu.root = __dirname;
 
 app.get(['/', '/index.html'], function (req, res){
-  getFiles(filesDir, function (files){
-    console.log(files);
-    var stream = mu.compileAndRender('index.html', {
-      files: files.map(function (file){
-        return {
-          file: file,
-          encodedFile: encodeURIComponent(file)
-        };
-      })
+  function render(data){
+    renderFile(res, 'index.html', data);
+  }
+  ensureDir(filesDir, function (){
+    getFiles(filesDir, function (files){
+      console.log(files);
+      render({
+        files: files.map(function (file){
+          return {
+            file: file,
+            encodedFile: encodeURIComponent(file)
+          };
+        })
+      });
+    }, function (err){
+      console.log(err);
+      render({
+        files: [],
+        err: err.toString()
+      });
     });
-    stream.pipe(res);
   }, function (err){
     console.log(err);
-    res.send(err.toString());
+    render({
+      files: [],
+      err: err.toString()
+    });
   });
 });
 
@@ -82,27 +95,30 @@ function getFiles(dir, cb, ef){
 var path = require('path');
 
 app.get('/file.html', function (req, res){
+  function render(data){
+    renderFile(res, 'file.html', data);
+  }
   var file = req.query.file;
   if (file === undefined){
-    var stream = mu.compileAndRender('file.html', {
-      data: "null"
-    });
-    stream.pipe(res);
+    render({data: "null"});
   } else {
     var serverPath = path.normalize(filesDir + "/" + file);
     console.log(serverPath);
     readFileJSON(serverPath, function (json){
       console.log("Read file " + serverPath);
-      var stream = mu.compileAndRender('file.html', {
-        data: JSON.stringify(json)
-      });
-      stream.pipe(res);
+      render({data: JSON.stringify(json)});
     }, function (err){
       console.log(err);
-      res.send(err.toString());
+      render({data: JSON.stringify({err: err.toString()})});
     });
   }
 });
+
+function renderFile(res, file, data){
+  console.log(data);
+  var stream = mu.compileAndRender(file, data);
+  stream.pipe(res);
+}
 
 function readFile(file, cb, ef){
   fs.readFile(file, 'utf8', function (err, data) {
@@ -120,12 +136,20 @@ function readFileJSON(file, cb, ef){
     try {
       json = JSON.parse(data);
     } catch (e){
-      console.log(e);
       ef(e);
       return;
     }
     cb(json);
   }, ef);
+}
+
+function ensureDir(path, cb, ef) {
+    fs.mkdir(path, 0777, function(err){
+        if (err) {
+            if (err.code == 'EEXIST') cb(); // ignore the error if the folder already exists
+            else ef(err); // something else went wrong
+        } else cb(); // successfully created folder
+    });
 }
 
 app.use(express.static('.'));
