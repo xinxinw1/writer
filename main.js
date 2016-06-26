@@ -1,6 +1,6 @@
 $(document).ready(function(){
     console.log(document.referrer);
-    if (!/file\.html/.test(document.referrer)){
+    if (!/(file\.html|index\.html)/.test(document.referrer)){
       fadeIn($('#subtitle1'), 1000);
       fadeIn($('#subtitle2'), 1000, 300);
       fadeIn($('#buttons'), 1000, 600);

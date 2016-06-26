@@ -49,7 +49,7 @@ app.post('/delete', function(req, res) {
 
   deleteFile(filePath, function (){
     console.log("File " + filePath + " was deleted");
-    res.redirect('/');
+    res.redirect('index.html');
   }, function (err){
     console.log(err);
     res.send('Something went wrong, the file was not deleted! ' + err.toString());
