@@ -46,6 +46,8 @@ function addMathField(beforeObj){
     mathFieldDivs.splice(posBefore+1, 0, newObj);
     mathFieldFields.splice(posBefore+1, 0, mathField);
   }
+  document.body.scrollTop = document.body.scrollHeight;
+  
   var cancelKeyUpAndPress = false;
   $(newObj).bindUp("keydown", function (e) {
       // if this function returns, the following var will
