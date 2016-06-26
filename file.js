@@ -157,6 +157,7 @@ function saveFile(dataSet) {
         type: "POST",
         url: '/save',
         data: dataSet,
+        processData: false,
         success: function(data) {
             console.log(data);
         },
@@ -172,7 +173,8 @@ function saveFile(dataSet) {
 $('#saveLink').click(function() {
     var fileName = document.getElementById("filename").value;
     if (fileName != '') {
-        var data = {filename: fileName, lineData: mathFieldFields.map(function(a){return a.latex();})};
+        var data = 'data=' + encodeURIComponent(JSON.stringify({filename: fileName, lineData: mathFieldFields.map(function(a){return a.latex();})}));
+        console.log(data);
         saveFile(data);
     }
     else {

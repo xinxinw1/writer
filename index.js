@@ -4,30 +4,45 @@ var http = require('http').Server(app);
 
 app.set('port', (process.env.PORT || 8080));
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+// app.use(bodyParser.json());
+
 var filesDir = "files";
 
 app.post('/save', function(req, res) {
   var message = 'Save request received.';
-
-  res.send(message);
+  var data = JSON.parse(req.body.data);
   console.log(message);
+  console.log(data);
 
-  var saved = saveFile(req);
+  var saved = saveFile(data.filename, JSON.stringify(data));
   if (saved) {
     message = 'File saved successfully.';
-    console.log(message);
     res.send(message);
   }
   else {
     message = 'Something went wrong, the file was not saved!';
-    console.log(message);
     res.send(message);
   }
-
 });
 
-function saveFile(data) {
+function saveFile(filename, data) {
+  var fs = require('fs');
+  var filePath = filesDir + '/' + filename;
 
+  fs.writeFile(filePath, data, function(err) {
+    if(err) {
+      console.log(err);
+      return false;
+    }
+
+    console.log("File was saved to" + filePath);
+  });
+
+  return true;
 }
 
 var mu = require('mu2');
