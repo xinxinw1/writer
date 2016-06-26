@@ -1099,6 +1099,13 @@ function getInterface(v) {
     _.atRightEnd = function (){
       return this.__controller.cursor[R] === 0 && this.__controller.cursor.parent === this.__controller.root;
     };
+    
+    _.atTopEnd = function (){
+      return !this.__controller.canMoveUp();
+    };
+    _.atBottomEnd = function (){
+      return !this.__controller.canMoveDown();
+    };
 
     _.moveToDirEnd = function(dir) {
       this.__controller.notify('move').cursor.insAtDirEnd(dir, this.__controller.root);
@@ -1900,6 +1907,26 @@ Controller.open(function(_) {
       });
     }
     return self;
+  }
+  _.canMoveUp = function() { return canMoveUpDown(this, 'up'); };
+  _.canMoveDown = function() { return canMoveUpDown(this, 'down'); };
+  function canMoveUpDown(self, dir) {
+    var cursor = self.notify('upDown').cursor;
+    var dirInto = dir+'Into', dirOutOf = dir+'OutOf';
+    if (cursor[R][dirInto]) return true;
+    else if (cursor[L][dirInto]) return true;
+    else {
+      var canMove = false;
+      cursor.parent.bubble(function(ancestor) {
+        var prop = ancestor[dirOutOf];
+        if (prop) {
+          if (typeof prop === 'function' && ancestor !== self.root) canMove = true;
+          if (prop instanceof Node) canMove = true;
+          if (prop !== true) return false;
+        }
+      });
+    }
+    return canMove;
   }
   this.onNotify(function(e) { if (e !== 'upDown') this.upDownCache = {}; });
 
