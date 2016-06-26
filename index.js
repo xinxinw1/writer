@@ -5,14 +5,14 @@ var fs = require('fs');
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+    
+var filesDir = process.env.OPENSHIFT_DATA_DIR || "files";
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
   extended: false
 }));
 // app.use(bodyParser.json());
-
-var filesDir = "files";
 
 app.post('/save', function(req, res) {
   console.log('Save request received.');
