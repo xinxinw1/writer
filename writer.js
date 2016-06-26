@@ -151,6 +151,22 @@ $('#downloadLink').click(function(){
 	downloadData(fileName, data);
 });
 
+function saveFile(data) {
+    $.ajax({
+        type: "POST",
+        url: 'save',
+        data: data,
+        success: function() {
+            console.log('Data was saved successfully!')
+        }
+    });
+}
+
+$('#saveLink').click(function() {
+    var fileName = document.getElementById("filename").value;
+    var data = {filename: fileName, lineData: mathFieldFields.map(function(a){return a.latex();})};
+    saveFile(data);
+});
 
 /*var mathField = MQ.MathField(mathFieldSpan, {
   spaceBehavesLikeTab: false, // configurable
