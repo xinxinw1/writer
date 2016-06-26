@@ -134,9 +134,6 @@ function backSpaceLine(mathFieldDiv){
   }
 }
 
-$(document).ready(function () {
-    
-});
 addMathField();
 
 function downloadData(filename, data, mimeType) {
