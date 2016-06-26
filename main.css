@@ -26,7 +26,7 @@ h1 {
 	font-size: 50px;
 }
 
-button {
+button, input[type=submit] {
   font-family: Symbola, serif;
   font-size: 16pt;
   background-color: #F1EFEB;

@@ -22,7 +22,12 @@
       {{#files}}
       <tr>
         <td><a href="file.html?file={{encodedFile}}">{{file}}</a></td>
-        <td><button onclick="deleteFile('{{file}}')">Delete</button></td>
+        <td>
+          <form action="delete" method="post">
+            <input type="hidden" name="filename" value="{{file}}">
+            <input type="image" src="delete.png" width="32" height="32" value="Delete">
+          </form>
+        </td>
       </tr>
       {{/files}}
     </table>

@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
+var fs = require('fs');
 
 app.set('port', (process.env.PORT || 8080));
 
@@ -13,36 +14,55 @@ app.use(bodyParser.urlencoded({
 var filesDir = "files";
 
 app.post('/save', function(req, res) {
-  var message = 'Save request received.';
+  console.log('Save request received.');
   var data = JSON.parse(req.body.data);
-  console.log(message);
   console.log(data);
+  
+  var filePath = filesDir + '/' + data.filename;
 
-  var saved = saveFile(data.filename, JSON.stringify(data));
-  if (saved) {
-    message = 'File saved successfully.';
-    res.send(message);
-  }
-  else {
-    message = 'Something went wrong, the file was not saved!';
-    res.send(message);
-  }
+  saveFile(filePath, JSON.stringify(data), function (){
+    console.log("File was saved to" + filePath);
+    res.send('File saved successfully.');
+  }, function (err){
+    console.log(err);
+    res.send('Something went wrong, the file was not saved! ' + err.toString());
+  });
 });
 
-function saveFile(filename, data) {
-  var fs = require('fs');
+function saveFile(file, data, cb, ef) {
+  fs.writeFile(file, data, function(err) {
+    if (err) {
+      ef(err);
+    } else {
+      cb();
+    }
+  });
+}
+
+app.post('/delete', function(req, res) {
+  console.log('Delete request received.');
+  var filename = req.body.filename;
+  console.log(filename);
+  
   var filePath = filesDir + '/' + filename;
 
-  fs.writeFile(filePath, data, function(err) {
-    if(err) {
-      console.log(err);
-      return false;
-    }
-
-    console.log("File was saved to" + filePath);
+  deleteFile(filePath, function (){
+    console.log("File " + filePath + " was deleted");
+    res.redirect('/');
+  }, function (err){
+    console.log(err);
+    res.send('Something went wrong, the file was not deleted! ' + err.toString());
   });
-
-  return true;
+});
+  
+function deleteFile(file, cb, ef) {
+  fs.unlink(file, function(err) {
+    if (err) {
+      ef(err);
+    } else {
+      cb();
+    }
+  });
 }
 
 var mu = require('mu2');
@@ -79,8 +99,6 @@ app.get(['/', '/index.html'], function (req, res){
     });
   });
 });
-
-var fs = require('fs');
 
 function getFiles(dir, cb, ef){
   fs.readdir(dir, function (err, files){

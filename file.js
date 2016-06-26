@@ -176,7 +176,6 @@ $('#saveLink').click(function() {
     var fileName = document.getElementById("filename").value;
     if (fileName != '') {
         var data = 'data=' + encodeURIComponent(JSON.stringify({filename: fileName, lineData: mathFieldFields.map(function(a){return a.latex();})}));
-        console.log(data);
         saveFile(data);
     }
     else {
