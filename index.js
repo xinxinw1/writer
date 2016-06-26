@@ -3,7 +3,8 @@ var app = express();
 var http = require('http').Server(app);
 var fs = require('fs');
 
-app.set('port', (process.env.OPENSHIFT_NODEJS_PORT || 8080));
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+    ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
@@ -172,6 +173,4 @@ function ensureDir(path, cb, ef) {
 
 app.use(express.static('.'));
 
-http.listen(app.get('port'), function(){
-  console.log('listening on port ' + app.get('port'));
-});
+http.listen(port, ip);
