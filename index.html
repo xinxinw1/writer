@@ -83,7 +83,7 @@ function addMathField(beforeObj){
         }
         break;
       case 8: // backspace
-        if (mathField.atLeftEnd()){
+        if (mathField.atLeftEnd() && !mathField.hasSelection()){
           backSpaceLine(newObj);
         }
         break;
