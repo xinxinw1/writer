@@ -149,12 +149,15 @@ function downloadInnerHtml(filename, elId, mimeType) {
     link.click(); 
 }
 
-var fileName =  'math.txt'; 
-
 $('#downloadLink').click(function(){
+
+  var fileName =  document.getElementById("filename").value;
+
 	document.getElementById("main").innerHTML = mathFieldFields.map(function(a){return a.latex();}).join("\n");
-    downloadInnerHtml(fileName, 'main','text/html');
+    downloadInnerHtml(fileName, 'main','text/plain');
+
 });
+
 
 /*var mathField = MQ.MathField(mathFieldSpan, {
   spaceBehavesLikeTab: false, // configurable
