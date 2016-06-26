@@ -1,47 +1,19 @@
-<DOCTYPE! html>
+<!DOCTYPE html>
+<html>
 	<head>
 		<title> Main Page </title>
 		<link href="main_page.css" type = "text/css" rel = "stylesheet" />
+		<script src="main.js"></script>
 	</head>
 
 	<body>
 
 		<h1>Welcome to MathTextEditor!</h1>
 		<p> Some description </p>
-		<button type = "button1" onClick = "window.location='index.html';">Create New Document</button>
-		<button type = "button2" onClick = "openDirectoryMenu()">Access Documents</button>
-		<div id="fileContainerDiv"></div>
+		<button id="button1" onclick="window.location='index.html';">Create New Document</button>
+		<button id="button2" onclick="openDirectoryMenu()">Access Documents</button>
+		<div id = "fileContainerDiv"></div>
 
 	</body>
 
-	<script>
-
-		function openDirectoryMenu() {
-			document.createElement('br');
-
-			var fileList = getFileInfo();
-			//Each file consists of a title, an edit button, and a delete button
-
-			for (var i = 0; i < 5; i++) {
-
-				var fileDiv = document.createElement('div');
-				var fileName = document.createElement('p');
-				var buttonDelete = document.createElement('button');
-
-				fileName.innerHTML = "TestFile" + i;
-
-				fileDiv.appendChild(fileName);
-				fileDiv.appendChild(buttonDelete);
-
-				document.getElementById("fileContainerDiv").appendChild(fileDiv);
-			}
-		}
-
-		function getFileInfo() {
-
-		}
-
-	</script>
-
- 
 </html>
