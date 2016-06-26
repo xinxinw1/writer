@@ -16,21 +16,28 @@
 <script>
 var data = {{&data}};
 </script>
+<div class="flexy-box">
+  <div class="fixedpos">
+    <table id="top-bar"><tr>
+      <td>
+        <a href="index.html"><img src="back.png"></a>
+      </td>
+      <td id="filename-cell">
+        <input type="text" name="fname" id="filename" placeholder="File Name">
+      </td>
+      <td>
+        <a href="#" id="downloadLink"><img src="download.png"></a>
+        <a href="#" id="saveLink"><img src="save.png"></a>
+      </td>
+    </tr></table>
+    <hr>
+    <div id="math-box"></div>
+  </div>
+  <div class="flexy-height" onclick="focusLastField()">
+  </div>
+</div>
 
-<table id="top-bar"><tr>
-  <td>
-    <a href="index.html"><img src="back.png"></a>
-  </td>
-  <td id="filename-cell">
-    <input type="text" name="fname" id="filename" placeholder="File Name">
-  </td>
-  <td>
-    <a href="#" id="downloadLink"><img src="download.png"></a>
-    <a href="#" id="saveLink"><img src="save.png"></a>
-  </td>
-</tr></table>
-<hr>
-<div id="math-box"></div>
+
 
 <script src="file.js"></script>
 
