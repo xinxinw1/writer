@@ -12,7 +12,12 @@
 </head>
 
 <body>
-<a href="main.html">Go Back</a>
+<div id="main" style="display: none;
+    visibility: hidden;">
+    Sample
+</div>
+<a href="main.html">Go Back</a><a> ----</a>
+<a href="#" id="downloadLink">Export as .txt</a>
 <form class="filename" action="">
   File Name: <input type="text" name="fname"> 
   <input type="submit" value="Save">
@@ -154,6 +159,24 @@ $(document).ready(function () {
     
 });
 addMathField();
+
+function downloadInnerHtml(filename, elId, mimeType) {
+    var elHtml = document.getElementById(elId).innerHTML;
+    var link = document.createElement('a');
+    mimeType = mimeType || 'text/plain';
+
+    link.setAttribute('download', filename);
+    link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elHtml));
+    link.click(); 
+}
+
+var fileName =  'math.txt'; 
+
+$('#downloadLink').click(function(){
+	document.getElementById("main").innerHTML = mathFieldFields.map(function(a){return a.latex();}).join("\n");
+    downloadInnerHtml(fileName, 'main','text/html');
+});
+
 /*var mathField = MQ.MathField(mathFieldSpan, {
   spaceBehavesLikeTab: false, // configurable
   handlers: {
@@ -162,6 +185,7 @@ addMathField();
     }
   }
 });*/
+
 </script>
 
 </body>
