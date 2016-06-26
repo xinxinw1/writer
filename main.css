@@ -13,3 +13,13 @@
 	border:none;
 	box-shadow:none;
 }
+
+#filename {
+	height: 48px;
+	font-size: 40px;
+}
+
+#top-bar img, #top-bar input {
+	vertical-align: middle;
+	margin-bottom: 10px;
+}
