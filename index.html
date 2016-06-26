@@ -73,12 +73,12 @@ function addMathField(beforeObj){
         goToEndAfter(newObj);
         break;
       case 37: // left
-        if (mathField.atLeftEnd()){
+        if (mathField.atLeftEnd() && !mathField.hasSelection()){
           goToEndBefore(newObj);
         }
         break;
       case 39: // right
-        if (mathField.atRightEnd()){
+        if (mathField.atRightEnd() && !mathField.hasSelection()){
           goToStartAfter(newObj);
         }
         break;
