@@ -206,7 +206,7 @@ function go(filename){
 
 var hasOrigData = data !== null && data.err === undefined;
 var origFilename = hasOrigData?data.filename:"";
-var origLineData = hasOrigData?data.lineData:[];
+var origLineData = hasOrigData?data.lineData:[""];
 
 var origTitle = genTitle(hasOrigData?data.filename:"");
 var newTitle = "*" + origTitle;
@@ -222,10 +222,14 @@ $(document).keydown(function (e){
   }
 });
 
+function hasChanges(){
+  return !iso(origLineData, getLatexArr()) || origFilename !== getFilename();
+}
+
 function checkEdit(){
   console.log(origLineData);
   console.log(getLatexArr());
-  if (!iso(origLineData, getLatexArr()) || origFilename !== getFilename()){
+  if (hasChanges()){
     console.log("changed");
     document.title = newTitle;
     $("#saveLink").css("opacity", "1");
@@ -245,6 +249,10 @@ function iso(a, b){
 }
 
 document.onkeyup = checkEdit;
+
+window.onbeforeunload = function (){
+  if (hasChanges())return "Your changes have not been saved.";
+};
 
 $(function (){
   if (data === null){

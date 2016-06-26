@@ -37,6 +37,10 @@ button, input[type=submit] {
 table {border-collapse: collapse;}
 td, tr {vertical-align: middle; text-align: left;}
 
+input:focus, select:focus, textarea:focus, button:focus {
+  outline: none;
+}
+
 #files {
   margin-left: auto;
   margin-right: auto;
