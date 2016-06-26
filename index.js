@@ -10,6 +10,34 @@ app.post('/save', function(req, res) {
   res.send('hello world');
 });
 
+var mu = require('mu2');
+
+mu.root = __dirname;
+
+app.get('/main.html', function (req, res){
+  getFiles(function (files){
+    var stream = mu.compileAndRender('main.html', {files: files});
+    stream.pipe(res);
+  }, function (err){
+    console.log(err);
+    res.send(err.toString());
+  });
+});
+
+var fs = require('fs');
+
+function getFiles(cb, ef){
+  fs.readdir(filesDir, function (err, files){
+    if (err){
+      console.log(err);
+      ef(err);
+    } else {
+      console.log(files);
+      cb(files);
+    }
+  });
+}
+
 app.use(express.static('.'));
 
 http.listen(app.get('port'), function(){
