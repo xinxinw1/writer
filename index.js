@@ -35,7 +35,8 @@ var mu = require('mu2');
 mu.root = __dirname;
 
 app.get(['/', '/index.html'], function (req, res){
-  getFiles(function (files){
+  getFiles(filesDir, function (files){
+    console.log(files);
     var stream = mu.compileAndRender('index.html', {
       files: files.map(function (file){
         return {
@@ -53,16 +54,63 @@ app.get(['/', '/index.html'], function (req, res){
 
 var fs = require('fs');
 
-function getFiles(cb, ef){
-  fs.readdir(filesDir, function (err, files){
+function getFiles(dir, cb, ef){
+  fs.readdir(dir, function (err, files){
     if (err){
-      console.log(err);
       ef(err);
     } else {
-      console.log(files);
       cb(files);
     }
   });
+}
+
+var path = require('path');
+
+app.get('/file.html', function (req, res){
+  var file = req.query.file;
+  if (file === undefined){
+    var stream = mu.compileAndRender('file.html', {
+      data: "null"
+    });
+    stream.pipe(res);
+  } else {
+    var serverPath = path.normalize(filesDir + "/" + file);
+    console.log(serverPath);
+    readFileJSON(serverPath, function (json){
+      console.log("Read file " + serverPath);
+      var stream = mu.compileAndRender('file.html', {
+        data: JSON.stringify(json)
+      });
+      stream.pipe(res);
+    }, function (err){
+      console.log(err);
+      res.send(err.toString());
+    });
+  }
+});
+
+function readFile(file, cb, ef){
+  fs.readFile(file, 'utf8', function (err, data) {
+    if (err){
+      ef(err);
+    } else {
+      cb(data);
+    }
+  });
+}
+
+function readFileJSON(file, cb, ef){
+  readFile(file, function (data){
+    var json;
+    try {
+      json = JSON.parse(data);
+    } catch (e){
+      console.log(e);
+      ef(e);
+      return;
+    }
+    cb(json);
+  }, ef);
 }
 
 app.use(express.static('.'));
