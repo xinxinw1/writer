@@ -6,18 +6,29 @@ function openDirectoryMenu() {
     //Each file consists of a clickable title, and a delete button
     for (var i = 0; i < 5; i++) {
 
-        var fileDiv = document.createElement('div');
-        var fileName = document.createElement('p');
+        var tr = document.createElement('tr');
+        var td = document.createElement('td');
+        var td_del = document.createElement('td');
+        var fileName = document.createElement('span');
         var buttonDelete = document.createElement('button');
 
         fileName.innerHTML = "TEST" + i;
+        buttonDelete.innerHTML = "DELETE" + i;
 
-        fileDiv.appendChild(fileName);
-        fileDiv.appendChild(buttonDelete);
+        td.appendChild(fileName);
+        td_del.appendChild(buttonDelete);
+        tr.appendChild(td);
+        tr.appendChild(td_del);
 
-        document.getElementById("fileContainerDiv").appendChild(fileDiv);
+        document.getElementById("fileContainerDiv").appendChild(tr);
     }
 }
+
+$(document).ready(function(){
+    $('#div_with_text').fadeIn(1000);
+    $('#div_with_text2').delay(300).fadeIn(1000);
+    $('#buttondiv').delay(600).fadeIn(1000);
+});
 
 function getFileInfo() {
     var fileList = [];

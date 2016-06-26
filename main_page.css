@@ -22,3 +22,15 @@ p {
 button {
 	width : 200px;
 }
+
+#div_with_text {
+	display: none;
+}
+#div_with_text2 {
+	display: none;
+}
+#buttondiv {
+	display:none;
+}
+table {border-collapse: collapse; width: 100%;}
+td {vertical-align: middle;}
