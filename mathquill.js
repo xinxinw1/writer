@@ -3561,10 +3561,7 @@ LatexCmds.bigoplus = bind(VanillaSymbol, '\\bigoplus ', '&#8853;');
 LatexCmds.biguplus = bind(VanillaSymbol, '\\biguplus ', '&#8846;');
 
 //delimiters
-LatexCmds.lfloor = bind(VanillaSymbol, '\\lfloor ', '&#8970;');
-LatexCmds.rfloor = bind(VanillaSymbol, '\\rfloor ', '&#8971;');
-LatexCmds.lceil = bind(VanillaSymbol, '\\lceil ', '&#8968;');
-LatexCmds.rceil = bind(VanillaSymbol, '\\rceil ', '&#8969;');
+
 LatexCmds.opencurlybrace = LatexCmds.lbrace = bind(VanillaSymbol, '\\lbrace ', '{');
 LatexCmds.closecurlybrace = LatexCmds.rbrace = bind(VanillaSymbol, '\\rbrace ', '}');
 LatexCmds.lbrack = bind(VanillaSymbol, '[');
@@ -4817,6 +4814,10 @@ var OPP_BRACKS = {
   '&rang;': '&lang;',
   '\\langle ': '\\rangle ',
   '\\rangle ': '\\langle ',
+  '\\lceil ': '\\rceil ',
+  '\\rceil ': '\\lceil ',
+  '\\lfloor ': '\\rfloor ',
+  '\\rfloor ': '\\lfloor ',
   '|': '|'
 };
 
@@ -4830,6 +4831,10 @@ bindCharBracketPair('[');
 bindCharBracketPair('{', '\\{');
 LatexCmds.langle = bind(Bracket, L, '&lang;', '&rang;', '\\langle ', '\\rangle ');
 LatexCmds.rangle = bind(Bracket, R, '&lang;', '&rang;', '\\langle ', '\\rangle ');
+LatexCmds.lceil = bind(Bracket, L, '&#8968;', '&#8969;', '\\lceil ', '\\rceil ');
+LatexCmds.rceil = bind(Bracket, R, '&#8968;', '&#8969;', '\\lceil ', '\\rceil ');
+LatexCmds.lfloor = bind(Bracket, L, '&#8970;', '&#8971;', '\\lfloor ', '\\rfloor ');
+LatexCmds.rfloor = bind(Bracket, R, '&#8970;', '&#8971;', '\\lfloor ', '\\rfloor ');
 CharCmds['|'] = bind(Bracket, L, '|', '|', '|', '|');
 
 LatexCmds.left = P(MathCommand, function(_) {
