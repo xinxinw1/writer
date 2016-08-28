@@ -5,6 +5,7 @@ $(document).ready(function(){
       fadeIn($('#subtitle2'), 1000, 300);
       fadeIn($('#buttons'), 1000, 600);
       fadeIn($('#files'), 1000, 600);
+      fadeIn($('#github-link'), 1000, 600);
     }
 });
 

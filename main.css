@@ -18,7 +18,7 @@ h1 {
 	margin-bottom: 50px;
 }
 
-#subtitle1, #subtitle2, #buttons {
+#subtitle1, #subtitle2, #buttons, #files {
   margin-bottom: 50px;
 }
 
@@ -41,6 +41,15 @@ input:focus, select:focus, textarea:focus, button:focus {
   outline: none;
 }
 
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 #files {
   margin-left: auto;
   margin-right: auto;
@@ -55,10 +64,17 @@ input:focus, select:focus, textarea:focus, button:focus {
 
 #files a {
   display: block;
-  text-decoration: none;
-  color: #000;
 }
 
-#files a:hover {
+#github-link img {
+  vertical-align: middle;
+  margin-right: 2px;
+}
+
+#github-link a:hover {
+  text-decoration: none;
+}
+
+#github-link a:hover span {
   text-decoration: underline;
 }
