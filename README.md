@@ -10,6 +10,6 @@ This Node.js app was written by Xin-Xin Wang, Ryan Kim, Mitchell Horne, and Will
 
 ## License
 
-WriTeX is released under _______.
+WriTeX is released under the [MIT License](https://opensource.org/licenses/MIT).
 
 It contains a modified version of the open source library MathQuill which is released under the Mozilla Public License v2.0.
