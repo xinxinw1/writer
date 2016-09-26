@@ -1,6 +1,6 @@
 # WriTeX
 
-http://writer-xinxinw1.rhcloud.com/
+http://writer.xin-xin.me/
 
 A Simple Way to Write and Share LaTeX Notes
 
