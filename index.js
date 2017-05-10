@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({
 app.post('/save', function(req, res) {
   console.log('Save request received.');
   var data = JSON.parse(req.body.data);
-  console.log(data);
+  console.log('save', data);
   
   var filePath = filesDir + '/' + data.filename;
 
@@ -25,7 +25,7 @@ app.post('/save', function(req, res) {
     console.log("File was saved to" + filePath);
     res.send('File saved successfully.');
   }, function (err){
-    console.log(err);
+    console.log('save err', err);
     res.send('Something went wrong, the file was not saved! ' + err.toString());
   });
 });
@@ -43,7 +43,7 @@ function saveFile(file, data, cb, ef) {
 app.post('/delete', function(req, res) {
   console.log('Delete request received.');
   var filename = req.body.filename;
-  console.log(filename);
+  console.log('delete', filename);
   
   var filePath = filesDir + '/' + filename;
 
@@ -51,7 +51,7 @@ app.post('/delete', function(req, res) {
     console.log("File " + filePath + " was deleted");
     res.redirect('index.html');
   }, function (err){
-    console.log(err);
+    console.log('delete err', err);
     res.send('Something went wrong, the file was not deleted! ' + err.toString());
   });
 });
@@ -77,7 +77,7 @@ app.get(['/', '/index.html'], function (req, res){
   }
   ensureDir(filesDir, function (){
     getFiles(filesDir, function (files){
-      console.log(files);
+      console.log('get files', files);
       render({
         files: files.map(function (file){
           return {
@@ -87,14 +87,14 @@ app.get(['/', '/index.html'], function (req, res){
         })
       });
     }, function (err){
-      console.log(err);
+      console.log('get files err', err);
       render({
         files: [],
         err: err.toString()
       });
     });
   }, function (err){
-    console.log(err);
+    console.log('ensure dir err', err);
     render({
       files: [],
       err: err.toString()
@@ -124,19 +124,19 @@ app.get('/file.html', function (req, res){
     render({data: "null"});
   } else {
     var serverPath = path.normalize(filesDir + "/" + file);
-    console.log(serverPath);
+    console.log('file.html', serverPath);
     readFileJSON(serverPath, function (json){
       console.log("Read file " + serverPath);
       render({data: JSON.stringify(json)});
     }, function (err){
-      console.log(err);
+      console.log('file.html err', err);
       render({data: JSON.stringify({err: err.toString()})});
     });
   }
 });
 
 function renderFile(res, file, data){
-  console.log(data);
+  console.log('render file', data);
   var stream = mu.compileAndRender(file, data);
   stream.pipe(res);
 }
