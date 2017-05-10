@@ -73,7 +73,7 @@ mu.root = __dirname;
 app.get(['/', '/index.html'], function (req, res){
   res.setHeader("Content-Type", "text/html");
   function render(data){
-    renderFile(res, 'index.html', data);
+    renderFile(res, 'views/index.html', data);
   }
   ensureDir(filesDir, function (){
     getFiles(filesDir, function (files){
@@ -117,7 +117,7 @@ var path = require('path');
 app.get('/file.html', function (req, res){
   res.setHeader("Content-Type", "text/html");
   function render(data){
-    renderFile(res, 'file.html', data);
+    renderFile(res, 'views/file.html', data);
   }
   var file = req.query.file;
   if (file === undefined){
@@ -173,6 +173,6 @@ function ensureDir(path, cb, ef) {
     });
 }
 
-app.use(express.static('.'));
+app.use(express.static('static'));
 
 http.listen(port, ip);
